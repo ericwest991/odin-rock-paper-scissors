@@ -6,7 +6,8 @@
 <body>
 <script>
 
-function computerPlay() {
+function computerPlay() {  
+    //selects computers move
     let rand = Math.random();
     if (rand < 0.334) {
         return 'rock';
@@ -15,40 +16,60 @@ function computerPlay() {
     } else { return 'scissors' } ;  
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) { 
+    //determines winner of each round and keeps score
     if (playerSelection == computerSelection) {
         return 'Draw!' ;
     } else if  (playerSelection == 'rock' && computerSelection == 'paper') {
-        return 'You Lose! Paper beats Rock' ;
+        return computerScore++ , 'You Lose! Paper beats Rock' ;
     } else if (playerSelection == 'rock' && computerSelection == 'scissors') {
-        return 'You Win! Rock beats Scissors' ;
+        return playerScore++ , 'You Win! Rock beats Scissors' ;
     } else if (playerSelection == 'paper' && computerSelection == 'rock') {
-        return 'You Win! Paper beats Rock' ;
+        return playerScore++ , 'You Win! Paper beats Rock' ;
     } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
-        return 'You Lose! Scissors beats Paper' ;
+        return computerScore++, 'You Lose! Scissors beats Paper' ;
     } else if (playerSelection == 'scissors' && computerSelection == 'rock') {
-        return 'You Lose! Rock beats Scissors' ;
+        return computerScore++, 'You Lose! Rock beats Scissors' ;
     } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
-        return 'You Win! Scissors beats Paper'
+        return playerScore++ , 'You Win! Scissors beats Paper' ;
     } else { return 'Input Error' }
       }
 
+let playerScore = 0 ;
+let computerScore = 0 ;
+
+function finalScore(playerScore, computerScore) {
+    //message based on final score
+    if (playerScore == computerScore) {
+        return 'Tie game.' ;
+    } else if (playerScore > computerScore) {
+        return 'You Win!' ;
+    } else { return 'You Lose.' ; }
+}
+
+
 function playerInput() {
+    //prompts user to select their move
     selection = window.prompt('Please choose: Rock, Paper, Scissors?', '') ;
-    return selection.toLowerCase() ;
+    return selection.toLowerCase() ; //lowercase so playRound can accept input
 }
 
 function game() {
+    //runs playRound 5 times, alerts final score, resets scores to 0, relaunches intro prompt
     let i;
     for (i = 0; i < 5; i++) {
-    let playerSelection = playerInput();
-    let computerSelection = computerPlay();
-    alert(playRound(playerSelection, computerSelection));
-    }
-    return runOnLaunch()
+        let playerSelection = playerInput();
+        let computerSelection = computerPlay();
+        alert(playRound(playerSelection, computerSelection));
+        }
+    alert(finalScore(playerScore, computerScore) + ' Final score, You: ' + playerScore +  ' Computer: ' + computerScore) ;
+    playerScore = 0 ;
+    computerScore = 0 ;
+    runOnLaunch()
 }
 
 function runOnLaunch() {
+    //intro prompt
     newGame = window.prompt('Would you like to play Rock, Paper, Scissors? (y / n)', 'y');
     newGameInput = newGame.toLowerCase() ;
     if (newGameInput == 'y') {
