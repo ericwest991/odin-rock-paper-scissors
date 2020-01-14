@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    Rock Paper Scissors
 </head>
 <body>
 <script>
@@ -13,7 +14,6 @@ function computerPlay() {
         return 'paper' ;
     } else { return 'scissors' } ;  
 }
-
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection == computerSelection) {
@@ -31,26 +31,36 @@ function playRound(playerSelection, computerSelection) {
     } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
         return 'You Win! Scissors beats Paper'
     } else { return 'Input Error' }
-
       }
 
-
-let playerSelection = 'rock'
-const computerSelection = computerPlay()
-
 function playerInput() {
-    selection = window.prompt('Rock, Paper, Scissors?', '') ;
+    selection = window.prompt('Please choose: Rock, Paper, Scissors?', '') ;
     return selection.toLowerCase() ;
 }
+
 function game() {
     let i;
     for (i = 0; i < 5; i++) {
-    playerSelection = playerInput();
-    console.log(playRound(playerSelection, computerSelection));
+    let playerSelection = playerInput();
+    let computerSelection = computerPlay();
+    alert(playRound(playerSelection, computerSelection));
     }
+    return runOnLaunch()
 }
 
+function runOnLaunch() {
+    newGame = window.prompt('Would you like to play Rock, Paper, Scissors? (y / n)', 'y');
+    newGameInput = newGame.toLowerCase() ;
+    if (newGameInput == 'y') {
+        return game() ;
+    } else if (newGameInput == 'n') {
+        alert('Ok, let me know when you want to play!') ;
+        return runOnLaunch() ;
+    } else { alert('Please resubmit with a valid respons: \'y\' or \'n\'') ;
+             return runOnLaunch() ; }
+}
 
+runOnLaunch()
 
 
 
